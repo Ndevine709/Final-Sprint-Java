@@ -66,4 +66,15 @@ public class UserDao {
             e.printStackTrace();
         }
     }
+
+    public void deleteUser(int userId) throws SQLException {
+        String sql = "DELETE FROM users WHERE user_id = ?";
+        try (Connection connection = DatabaseConnection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, userId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
