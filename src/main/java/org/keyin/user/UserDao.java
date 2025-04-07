@@ -23,13 +23,12 @@ public class UserDao {
 
 
     public User getUserByUsername(String username) throws SQLException {
-        String sql = "SELECT * FROM users WHERE user_name = ?";
-        DriverManager DatabaseConnector;
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, username);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
+        String sql = "SELECT * FROM users WHERE username = ?";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, username);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
                     return new User(
                             resultSet.getInt("user_id"),
                             resultSet.getString("username"),
