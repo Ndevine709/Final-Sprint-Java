@@ -108,7 +108,7 @@ public class GymApp {
         String username = scanner.nextLine();
         System.out.print("Enter password: ");
         String password = scanner.nextLine();
-        System.out.print("Enter role (Admin/Trainer/Member): ");
+        System.out.print("Enter role (ADMIN/TRAINER/MEMBER): ");
         String role = scanner.nextLine();
 
         User user = new User(username, password, role);
