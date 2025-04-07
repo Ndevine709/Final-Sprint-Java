@@ -10,6 +10,12 @@ import java.sql.SQLException;
 // DAOs are responsible for handling the interactions with the database
 public class MembershipDAO {
 
+    // connect to db
+    private Connection getConnection() throws SQLException {
+        return DatabaseConnection.getConnection();
+    }
+
+
     // Here we have a method that adds a membership to the database,
     // it takes a membership object as a parameter and inserts it into the database
     // using a prepared statement
