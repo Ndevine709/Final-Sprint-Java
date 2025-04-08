@@ -1,6 +1,8 @@
 package org.keyin.user;
 import org.keyin.database.DatabaseConnection;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDao {
 
@@ -46,35 +48,41 @@ public class UserDao {
         return null;
     }
 
-    public void getAllUsers() throws SQLException {
-        ResultSet resultset = null;
+    public List<User> getAllUsers() throws SQLException {
+        List<User> users = new ArrayList<>();
         try (Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users")) {
-            resultset = preparedStatement.executeQuery();
-            System.out.println("\n=== All Users ===");
-            while (resultset.next()) {
-                System.out.println("User ID: " + resultset.getInt("user_id"));
-                System.out.println("Username: " + resultset.getString("username"));
-                System.out.println("Password: " + resultset.getString("password"));
-                System.out.println("Address: " + resultset.getString("address"));
-                System.out.println("Email: " + resultset.getString("email"));
-                System.out.println("Phone Number: " + resultset.getString("phone_number"));
-                System.out.println("Role: " + resultset.getString("role"));
-                System.out.println("------------------");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users");
+            ResultSet resultSet = preparedStatement.executeQuery()) {
+            
+            while (resultSet.next()) {
+                User user = new User(
+                    resultSet.getInt("user_id"),
+                    resultSet.getString("username"),
+                    resultSet.getString("password"),
+                    resultSet.getString("address"),
+                    resultSet.getString("email"),
+                    resultSet.getString("phone_number"),
+                    resultSet.getString("role")
+                );
+                users.add(user);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            throw e;
         }
+        return users;
     }
 
-    public void deleteUser(int userId) throws SQLException {
-        String sql = "DELETE FROM users WHERE user_id = ?";
+    public boolean deleteUser(String username) throws SQLException {
+        String sql = "DELETE FROM users WHERE username = ?";
         try (Connection connection = DatabaseConnection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setInt(1, userId);
-            preparedStatement.executeUpdate();
+            preparedStatement.setString(1, username);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;  // Returns true if a user was actually deleted
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 }

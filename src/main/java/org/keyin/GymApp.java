@@ -3,6 +3,7 @@ package org.keyin;
 
 
 import org.keyin.memberships.MembershipService;
+import org.keyin.user.User;
 import org.keyin.user.UserService;
 import org.keyin.workoutclasses.WorkoutClassService;
 
@@ -61,21 +62,22 @@ public class GymApp {
         String password = scanner.nextLine();
 
         try {
-            User user = userService.loginForUser(username, password);
+            User user = userService.login(username, password);
             if (user != null) {
-                System.out.println("Login Successful! Welcome " + user.getUserName());
-                switch (user.getUserRole().toLowerCase()) {
-                    case "admin":
+                System.out.println("Login Successful! Welcome " + user.getUsername());
+                String role = user.getRole();
+                switch (role.toUpperCase()) {
+                    case "ADMIN":
                         showAdminMenu(scanner, user, userService, membershipService, workoutService);
                         break;
-                    case "trainer":
-                        // show menu for trainer
+                    case "TRAINER":
+                        showTrainerMenu(scanner, user, userService, workoutService); // Work in progress
                         break;
-                    case "member":
-                        // show menu for member
+                    case "MEMBER":
+                        showMemberMenu(scanner, user, userService, membershipService); // Work in progress
                         break;
                     default:
-
+                        System.out.println("Invalid role: " + role);
                         break;
                 }
             } else {
