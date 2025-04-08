@@ -55,7 +55,7 @@ public class GymApp {
         scanner.close();
     }
 
-    private static void logInAsUser(Scanner scanner, UserService userService, MembershipService membershipService, WorkoutService workoutService) {
+    private static void logInAsUser(Scanner scanner, UserService userService, MembershipService membershipService, WorkoutClassService workoutService) {
         System.out.print("Enter username: ");
         String username = scanner.nextLine();
         System.out.print("Enter password: ");
@@ -71,10 +71,10 @@ public class GymApp {
                         showAdminMenu(scanner, user, userService, membershipService, workoutService);
                         break;
                     case "TRAINER":
-                        showTrainerMenu(scanner, user, userService, workoutService); // Work in progress
+                        showTrainerMenu(scanner, user, userService, workoutService); 
                         break;
                     case "MEMBER":
-                        showMemberMenu(scanner, user, userService, membershipService); // Work in progress
+                        showMemberMenu(scanner, user, userService, membershipService); 
                         break;
                     default:
                         System.out.println("Invalid role: " + role);
@@ -95,12 +95,12 @@ public class GymApp {
     }
 
     // Placeholder for Trainer menu
-    private static void showTrainerMenu(Scanner scanner, User user, UserService userService, WorkoutService workoutService) {
+    private static void showTrainerMenu(Scanner scanner, User user, UserService userService, WorkoutClassService workoutService) {
         System.out.println("Trainer menu under construction.");
     }
 
     // Admin menu with minimal implementation
-    private static void showAdminMenu(Scanner scanner, User user, UserService userService, MembershipService membershipService, WorkoutService workoutService) {
+    private static void showAdminMenu(Scanner scanner, User user, UserService userService, MembershipService membershipService, WorkoutClassService workoutService) {
         System.out.println("Admin menu under construction.");
     }
 
