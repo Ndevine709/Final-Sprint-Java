@@ -1,15 +1,10 @@
 package org.keyin;
-
-
-
 import org.keyin.memberships.MembershipService;
 import org.keyin.user.User;
 import org.keyin.user.UserService;
 import org.keyin.workoutclasses.WorkoutClassService;
-
 import java.sql.SQLException;
 import java.util.Scanner;
-
 public class GymApp {
     public static void main(String[] args) throws SQLException {
         // Initialize services
@@ -104,7 +99,7 @@ public class GymApp {
         System.out.println("Admin menu under construction.");
     }
 
-    // Minimal implementation of adding a new user
+    // Implementation of adding a new user
     private static void addNewUser(Scanner scanner, UserService userService) {
         System.out.print("Enter username: ");
         String username = scanner.nextLine();
@@ -112,13 +107,15 @@ public class GymApp {
         String password = scanner.nextLine();
         System.out.print("Enter role (ADMIN/TRAINER/MEMBER): ");
         String role = scanner.nextLine();
+        System.out.print("Enter address: ");
+        String address = scanner.nextLine();
+        System.out.print("Enter email: ");
+        String email = scanner.nextLine();
+        System.out.print("Enter phone number: ");
+        String phoneNumber = scanner.nextLine();
 
-        User user = new User(username, password, role);
-        try {
-            userService.addUser(user);
-            System.out.println("User added successfully!");
-        } catch (SQLException e) {
-            System.out.println("Error adding user: " + e.getMessage());
-        }
+        User user = new User(username, password, role, address, email, phoneNumber);
+        userService.addUser(user);
+        System.out.println("User added successfully!"); 
     }
 }
