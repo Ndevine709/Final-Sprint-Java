@@ -1,10 +1,14 @@
 package org.keyin;
+
+import org.keyin.memberships.Membership;
 import org.keyin.memberships.MembershipService;
 import org.keyin.user.User;
 import org.keyin.user.UserService;
 import org.keyin.workoutclasses.WorkoutClassService;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
+
 public class GymApp {
     public static void main(String[] args) throws SQLException {
         // Initialize services
@@ -50,7 +54,8 @@ public class GymApp {
         scanner.close();
     }
 
-    private static void logInAsUser(Scanner scanner, UserService userService, MembershipService membershipService, WorkoutClassService workoutService) {
+    private static void logInAsUser(Scanner scanner, UserService userService, MembershipService membershipService,
+            WorkoutClassService workoutService) {
         System.out.print("Enter username: ");
         String username = scanner.nextLine();
         System.out.print("Enter password: ");
@@ -66,10 +71,10 @@ public class GymApp {
                         showAdminMenu(scanner, user, userService, membershipService, workoutService);
                         break;
                     case "TRAINER":
-                        showTrainerMenu(scanner, user, userService, workoutService); 
+                        showTrainerMenu(scanner, user, userService, workoutService);
                         break;
                     case "MEMBER":
-                        showMemberMenu(scanner, user, userService, membershipService); 
+                        showMemberMenu(scanner, user, userService, membershipService);
                         break;
                     default:
                         System.out.println("Invalid role: " + role);
@@ -84,25 +89,85 @@ public class GymApp {
         }
     }
 
-    // Placeholder for Member menu
-    private static void showMemberMenu(Scanner scanner, User user, UserService userService, MembershipService membershipService) {
-        System.out.println("Member menu under construction.");
+    // Member menu
+    private static void showMemberMenu(Scanner scanner, User user, UserService userService,
+            MembershipService membershipService) { 
+        System.out.println("Welcome Member! " + user.getUsername());
+        System.out.println("1. View all workout classes");
+        System.out.println("2. Purchase a membership");
+        System.out.println("3. View my membership expenses");
+        System.out.println("4. Back to main menu");
+        System.out.print("Enter your choice: ");
+
+        try {
+            int memberChoice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (memberChoice) {
+                case 1:
+                    System.out.println("Displaying available workout classes:");
+                    System.out.println("Workout classes functionality under construction.");
+                    break;
+                case 2:
+                    System.out.print("Enter membership type (e.g., Basic, Premium): ");
+                    String type = scanner.nextLine();
+                    System.out.print("Enter membership description: ");
+                    String description = scanner.nextLine();
+                    System.out.print("Enter membership cost: ");
+                    double cost = scanner.nextDouble();
+                    scanner.nextLine();
+
+                    Membership newMembership = new Membership(type, description, cost, user.getUserId());
+                    if (membershipService.purchaseMembership(newMembership)) {
+                        System.out.println("Membership purchased successfully!");
+                    } else {
+                        System.out.println("Failed to purchase membership.");
+                    }
+                    break;
+                case 3:
+                    List<Membership> memberships = membershipService.getMembershipsForUser(user.getUserId());
+                    if (memberships.isEmpty()) {
+                        System.out.println("You have no memberships.");
+                    } else {
+                        double total = 0.0;
+                        System.out.println("Your memberships:");
+                        for (Membership m : memberships) {
+                            System.out.println("ID: " + m.getMembershipId() +
+                                    ", Type: " + m.getMembershipType() +
+                                    ", Cost: $" + m.getMembershipCost());
+                            total += m.getMembershipCost();
+                        }
+                        System.out.println("Total membership expenses: $" + total);
+                    }
+                    break;
+                case 4:
+                    System.out.println("Returning to main menu...");
+                    break;
+                default:
+                    System.out.println("Invalid choice! Please try again.");
+            }
+        } catch (Exception e) {
+            System.out.println("Error occurred: " + e.getMessage());
+            scanner.nextLine();
+        }
     }
 
     // Placeholder for Trainer menu
-    private static void showTrainerMenu(Scanner scanner, User user, UserService userService, WorkoutClassService workoutService) {
+    private static void showTrainerMenu(Scanner scanner, User user, UserService userService,
+            WorkoutClassService workoutService) {
         System.out.println("Trainer menu under construction.");
     }
 
     // Admin menu with minimal implementation
-    private static void showAdminMenu(Scanner scanner, User user, UserService userService, MembershipService membershipService, WorkoutClassService workoutService) {
+    private static void showAdminMenu(Scanner scanner, User user, UserService userService,
+            MembershipService membershipService, WorkoutClassService workoutService) {
         try {
             System.out.println("\nWelcome Admin " + user.getUsername());
             System.out.println("Please make your choice below:");
             System.out.println("1. View all users");
             System.out.println("2. Delete a user");
             System.out.println("3. View memberships and annual revenue");
-            
+
             int choice = scanner.nextInt();
             scanner.nextLine();
 
@@ -147,6 +212,6 @@ public class GymApp {
 
         User user = new User(username, password, role, address, email, phoneNumber);
         userService.addUser(user);
-        System.out.println("User added successfully!"); 
+        System.out.println("User added successfully!");
     }
 }
