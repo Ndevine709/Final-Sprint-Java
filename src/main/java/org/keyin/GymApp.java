@@ -96,7 +96,38 @@ public class GymApp {
 
     // Admin menu with minimal implementation
     private static void showAdminMenu(Scanner scanner, User user, UserService userService, MembershipService membershipService, WorkoutClassService workoutService) {
-        System.out.println("Admin menu under construction.");
+        try {
+            System.out.println("\nWelcome Admin " + user.getUsername());
+            System.out.println("Please make your choice below:");
+            System.out.println("1. View all users");
+            System.out.println("2. Delete a user");
+            System.out.println("3. View memberships and annual revenue");
+            
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    userService.viewAllUsers(user);
+                    break;
+                case 2:
+                    System.out.print("Enter username to delete: ");
+                    String usernameToDelete = scanner.nextLine();
+                    userService.deleteUser(user, usernameToDelete);
+                    break;
+                case 3:
+                    // Implement view memberships and annual revenue functionality plz
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+            }
+        } catch (SQLException e) {
+            System.out.println("Database error occurred: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("An error occurred: " + e.getMessage());
+            scanner.nextLine(); // Clear any bad input
+        }
     }
 
     // Implementation of adding a new user
