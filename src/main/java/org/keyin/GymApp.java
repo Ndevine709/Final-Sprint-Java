@@ -202,7 +202,7 @@ public class GymApp {
         System.out.print("Enter password: ");
         String password = scanner.nextLine();
         System.out.print("Enter role (ADMIN/TRAINER/MEMBER): ");
-        String role = scanner.nextLine();
+        String role = scanner.nextLine().toUpperCase();
         System.out.print("Enter address: ");
         String address = scanner.nextLine();
         System.out.print("Enter email: ");
