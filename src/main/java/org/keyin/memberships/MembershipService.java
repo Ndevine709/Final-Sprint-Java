@@ -43,4 +43,7 @@ public class MembershipService {
         return deleted;
     }
 
+    public List<Membership> getAllMemberships(){
+        return dao.getAllMemberships();
+    }
 }

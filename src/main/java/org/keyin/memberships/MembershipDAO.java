@@ -102,4 +102,26 @@ public class MembershipDAO {
         }
         return false;
     }
+
+    public List<Membership> getAllMemberships() {
+        List<Membership> memberships = new ArrayList<>();
+        String sql = "SELECT * FROM memberships";
+        try (Connection connection = getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Membership membership = new Membership(
+                            resultSet.getInt("membership_id"),
+                            resultSet.getString("membership_type"),
+                            resultSet.getString("membership_description"),
+                            resultSet.getDouble("membership_cost"),
+                            resultSet.getInt("member_id"));
+                    memberships.add(membership);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return memberships;
+    }
 }
