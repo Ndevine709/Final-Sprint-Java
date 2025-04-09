@@ -9,7 +9,7 @@ CREATE TABLE users (
     address TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
     phone_number TEXT NOT NULL,
-    role TEXT CHECK (role IN ('ADMIN', 'TRAINER', 'MEMBER')) NOT NULL
+    role TEXT NOT NULL
 );
  -- Create memberships table
 CREATE TABLE memberships (

@@ -15,7 +15,6 @@ public class UserService {
         user.setPassword(hashedPassword);
         
         userDao.addUser(user);
-        System.out.println("User added successfully!");
         return true;
     }
 
