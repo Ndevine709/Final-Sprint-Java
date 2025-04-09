@@ -1,74 +1,61 @@
 package org.keyin.workoutclasses;
 
 public class WorkoutClass {
-    private int classId;
-    private String name;
-    private String description;
-    private String trainer;
-    private String schedule;
-
+    private int class_id;
+    private String class_type;
+    private String class_description;
+    private int trainer_id;
+    
     // Default constructor
     public WorkoutClass(){
     }
 
-
-    public WorkoutClass(int classId, String name, String description, String trainer, String schedule){
-        this.classId = classId;
-        this.name = name;
-        this.description = description;
-        this.trainer = trainer;
-        this.schedule = schedule;
+    // Constructors
+    public WorkoutClass(int class_id, String class_type, String class_description, int trainer_id){
+        this.class_id = class_id;
+        this.class_type = class_type;
+        this.class_description = class_description;
+        this.trainer_id = trainer_id;  
     }
 
-
-    public WorkoutClass(String name, String description, String trainer, String schedule){
-        this.name = name;
-        this.description = description;
-        this.trainer = trainer;
-        this.schedule = schedule;
+    public WorkoutClass(String class_type, String class_description, int trainer_id){
+        this.class_type = class_type;
+        this.class_description = class_description;
+        this.trainer_id = trainer_id;
     }
-
 
     // Getters and Setters 
 
     public int getClassId(){
-        return classId;
+        return class_id;
     }
 
-    public void setClassId(int classId) {
-        this.classId = classId;
+    public void setClassId(int class_id) {
+        this.class_id = class_id;
     }
 
-    public String getName() {
-        return name;
+    public String getClassType() {
+        return class_type;
     }
 
-    public void setName(String name) {
-    this.name = name;
+    public void setClassType(String class_type) {
+        this.class_type = class_type;
     }
 
-    public String getDescription() {
-        return description;
+    public String getClassDescription() {
+        return class_description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setClassDescription(String class_description) {
+        this.class_description = class_description;
     }
 
-    public String getTrainer() {
-        return trainer;
+    public int getTrainerId() {
+        return trainer_id;
     }
 
-    public void setTrainer(String trainer) {
-        this.trainer = trainer;
-    }
-
-    public String getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(String schedule) {
-        this.schedule = schedule;
+    public void setTrainerId(int trainer_id) {
+        this.trainer_id = trainer_id;
     }
 
     // Methods
@@ -76,6 +63,6 @@ public class WorkoutClass {
   @Override
   public String toString() {
       
-      return("Class ID: " + classId + "Class Name:" + name + "Description:" + description + "Trainer:" + trainer + "Schedule:" + schedule );
+      return("Class ID: " + class_id + "Class Type: " + class_type + "Description:" + class_description + "Trainer: " + trainer_id );
   }
 }
