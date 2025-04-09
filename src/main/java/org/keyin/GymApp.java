@@ -210,7 +210,7 @@ public class GymApp {
         System.out.print("Enter phone number: ");
         String phoneNumber = scanner.nextLine();
 
-        User user = new User(username, password, role, address, email, phoneNumber);
+        User user = new User(username, password, address, email, phoneNumber, role);
         userService.addUser(user);
         System.out.println("User added successfully!");
     }
