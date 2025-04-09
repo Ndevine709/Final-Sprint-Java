@@ -43,7 +43,23 @@ public class MembershipService {
         return deleted;
     }
 
-    public List<Membership> getAllMemberships(){
-        return dao.getAllMemberships();
+    public void displayAllMembershipsAndRevenue() {
+        List<Membership> memberships = dao.getAllMemberships();
+        double totalRevenue = 0.0;
+
+        System.out.println("\n=== All Gym Memberships ===");
+        if (memberships.isEmpty()) {
+            System.out.println("No memberships found.");
+        } else {
+            for (Membership membership : memberships) {
+                System.out.println("\nMembership ID: " + membership.getMembershipId());
+                System.out.println("Type: " + membership.getMembershipType());
+                System.out.println("Description: " + membership.getMembershipDescription());
+                System.out.println("Cost: $" + String.format("%.2f", membership.getMembershipCost()));
+                System.out.println("Member ID: " + membership.getMemberId());
+                totalRevenue += membership.getMembershipCost();
+            }
+            System.out.println("\nTotal Annual Revenue: $" + String.format("%.2f", totalRevenue));
+        }
     }
 }
