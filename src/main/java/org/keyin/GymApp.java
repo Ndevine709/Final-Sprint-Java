@@ -167,6 +167,7 @@ public class GymApp {
             System.out.println("1. View all users");
             System.out.println("2. Delete a user");
             System.out.println("3. View memberships and annual revenue");
+            System.out.println("4. Return to main menu");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -181,8 +182,10 @@ public class GymApp {
                     userService.deleteUser(user, usernameToDelete);
                     break;
                 case 3:
-                    // Implement view memberships and annual revenue functionality plz
+                    membershipService.getAllMemberships();
                     break;
+                case 4:
+                    return;
                 default:
                     System.out.println("Invalid choice. Please try again.");
                     break;
