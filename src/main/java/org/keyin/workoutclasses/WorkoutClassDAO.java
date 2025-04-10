@@ -79,4 +79,27 @@ public class WorkoutClassDAO{
             throw new RuntimeException("Error retrieving workout classes...");
         }
     }
+
+    public List<WorkoutClass> getAllWorkoutClasses() throws SQLException {
+        String sql = "SELECT * FROM public.WorkoutClass";
+        List<WorkoutClass> workoutClasses = new ArrayList<>();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    WorkoutClass wc = new WorkoutClass(
+                        resultSet.getInt("class_id"),
+                        resultSet.getString("class_type"),
+                        resultSet.getString("class_description"),
+                        resultSet.getInt("trainer_id")
+                    );
+                    workoutClasses.add(wc);
+                }
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new RuntimeException("Error retrieving all workout classes...", exception);
+        }
+        return workoutClasses;
+    }
+    
 };

@@ -58,4 +58,14 @@ public class WorkoutClassService {
             System.err.println("Error retrieving workout classes: " + exception.getMessage());
         }return new ArrayList<>();
     }
+
+    public List<WorkoutClass> getAllWorkoutClasses() {
+        try { 
+            return workoutDAO.getAllWorkoutClasses();
+        } catch (SQLException exception) {
+            System.err.println("Error retrieving all workout classes: " + exception.getMessage());
+            return new ArrayList<>();
+        }
+    }
+    
 };

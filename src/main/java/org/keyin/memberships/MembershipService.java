@@ -51,6 +51,7 @@ public class MembershipService {
         if (memberships.isEmpty()) {
             System.out.println("No memberships found.");
         } else {
+            System.out.println("---------------------------");
             for (Membership membership : memberships) {
                 System.out.println("\nMembership ID: " + membership.getMembershipId());
                 System.out.println("Type: " + membership.getMembershipType());
@@ -58,6 +59,7 @@ public class MembershipService {
                 System.out.println("Cost: $" + String.format("%.2f", membership.getMembershipCost()));
                 System.out.println("Member ID: " + membership.getMemberId());
                 totalRevenue += membership.getMembershipCost();
+                System.out.println("---------------------------");
             }
             System.out.println("\nTotal Annual Revenue: $" + String.format("%.2f", totalRevenue));
         }
