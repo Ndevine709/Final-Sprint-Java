@@ -21,36 +21,39 @@ public class WorkoutClassService {
         }
     }
 
-    public void createNewWorkoutClass(WorkoutClass workoutClass){
+    public boolean createNewWorkoutClass(WorkoutClass workoutClass){
         try{
          workoutDAO.createNewWorkoutClass(workoutClass); 
         System.out.println("Workout Created successfully...");
+        return true;
         }catch(SQLException exception) {
             System.err.println("Error creating workout class: " + exception.getMessage());
-        }
+        }return false;
     }
 
-    public void updateWorkOutClass(WorkoutClass workoutClass){
+    public boolean updateWorkOutClass(WorkoutClass workoutClass){
         try{
         workoutDAO.updateWorkoutClass(workoutClass);
         System.out.println("Workout Updated successfully...");
+        return true;
         } catch(SQLException exception) {
             System.err.println("Error updating workout class: " + exception.getMessage());
-        }
+        }return false;
     }
 
-    public void deleteWorkoutClass(WorkoutClass workoutClass){
+    public boolean deleteWorkoutClass(int classId){
         try{
-            workoutDAO.deleteWorkoutClass(0);
+            workoutDAO.deleteWorkoutClass(classId);
             System.out.println("Workout Class deleted successfully...");
+            return true;
         } catch(SQLException exception){
             System.err.println("Error deleting workout class: " + exception.getMessage());
-        }
+        }return false;
     }
 
-    public List<WorkoutClass> getAllWorkoutClasses(){
+    public List<WorkoutClass> getAllWorkoutClassesByTrainer(int trainer_id){
         try { 
-            return workoutDAO.getAllWorkoutClasses();
+            return workoutDAO.getAllWorkoutClassesByTrainer(trainer_id);
         }catch(SQLException exception) {
             System.err.println("Error retrieving workout classes: " + exception.getMessage());
         }return new ArrayList<>();

@@ -15,7 +15,7 @@ public class WorkoutClassDAO{
     }
 
     public void createNewWorkoutClass(WorkoutClass workoutClass) throws SQLException{
-        String sql = "INSERT INTO public.WorkoutClass(class_type, class_description, trainer_id) VALUES(?, ?, ?, ?)";
+        String sql = "INSERT INTO public.WorkoutClass(class_type, class_description, trainer_id) VALUES(?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             preparedStatement.setString(1, workoutClass.getClassType());
@@ -29,13 +29,13 @@ public class WorkoutClassDAO{
     };
 
     public void updateWorkoutClass(WorkoutClass workoutClass) throws SQLException{
-        String sql = "UPDATE public.WorkoutClass SET class_type = ?, class_description = ?, trainer_id= ? WHERE class_id = ? ";
+        String sql = "UPDATE public.WorkoutClass SET class_type = ?, class_description = ? WHERE class_id = ? ";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
-            preparedStatement.setInt(1, workoutClass.getClassId());
-            preparedStatement.setString(2, workoutClass.getClassType());
-            preparedStatement.setString(3, workoutClass.getClassDescription());
-            preparedStatement.setInt(4, workoutClass.getTrainerId());
+            
+            preparedStatement.setString(1, workoutClass.getClassType());
+            preparedStatement.setString(2, workoutClass.getClassDescription());
+            preparedStatement.setInt(3, workoutClass.getClassId());
             preparedStatement.executeUpdate();        
         } catch (SQLException exception){
             exception.printStackTrace();
@@ -55,25 +55,28 @@ public class WorkoutClassDAO{
         }
     }
 
-    public List<WorkoutClass> getAllWorkoutClasses() throws SQLException{
-        String sql = "SELECT * FROM public.WorkoutClass";
+    public List<WorkoutClass> getAllWorkoutClassesByTrainer(int trainerId) throws SQLException{
+        String sql = "SELECT * FROM public.WorkoutClass WHERE trainer_id = ?";
         List<WorkoutClass> workoutClasses = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            ResultSet resultSet = preparedStatement.executeQuery()){
-                while (resultSet.next()){ 
+        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+            preparedStatement.setInt(1, trainerId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()){
+                while (resultSet.next()){
                     WorkoutClass class1 = new WorkoutClass(
                         resultSet.getInt("class_id"),
                         resultSet.getString("class_type"),
                         resultSet.getString("class_description"),
                         resultSet.getInt("trainer_id")
                     );
-                  workoutClasses.add(class1);
-            }    
-        } catch (SQLException exception){
+                    workoutClasses.add(class1);
+                }
+            }
+            return workoutClasses;
+        }catch(SQLException exception){
             exception.printStackTrace();
-            throw new RuntimeException("Error deleting workout class...");
+            throw new RuntimeException("Error retrieving workout classes...");
         }
-        return workoutClasses;
-    };
+    }
 };
