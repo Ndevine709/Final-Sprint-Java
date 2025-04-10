@@ -18,7 +18,7 @@ CREATE TABLE memberships (
     membership_description TEXT,
     membership_cost DECIMAL(10,2) NOT NULL,
     member_id INT,
-    FOREIGN KEY (member_id) REFERENCES users(user_id)
+    FOREIGN KEY (member_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
 -- Create workout classes table
@@ -27,5 +27,5 @@ CREATE TABLE workoutClass(
 	class_type TEXT NOT NULL,
 	class_description TEXT NOT NULL,
     trainer_id INT,
-	FOREIGN KEY (trainer_id) REFERENCES users(user_id)
+	FOREIGN KEY (trainer_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
