@@ -105,8 +105,6 @@ src/
    - Memberships
    - Workout Classes
 
-> You may find the SQL schema in a separate file, or ask your instructor for the required database schema.
-
 4. **Configure database connection** in your project (likely in `DatabaseConnection` class) to match your local setup:
 ```java
 Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/gymdb", "username", "password");
