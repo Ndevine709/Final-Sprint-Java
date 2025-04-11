@@ -137,7 +137,6 @@ public class GymApp {
 
                         Membership newMembership = new Membership(type, description, cost, user.getUserId());
                         if (membershipService.purchaseMembership(newMembership)) {
-                            System.out.println("Membership purchased successfully!");
                         } else {
                             System.out.println("Failed to purchase membership.");
                         }
