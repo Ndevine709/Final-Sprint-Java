@@ -275,7 +275,7 @@ public class GymApp {
         } while (trainerChoice != 6);
     }
 
-    // Admin menu with minimal implementation
+    // Admin menu 
     private static void showAdminMenu(Scanner scanner, User user, UserService userService,
             MembershipService membershipService, WorkoutClassService workoutService) {
         int adminChoice = -1;
