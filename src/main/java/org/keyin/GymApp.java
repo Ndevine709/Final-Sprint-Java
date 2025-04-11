@@ -100,7 +100,7 @@ public class GymApp {
             System.out.println("1. View all workout classes");
             System.out.println("2. Purchase a membership");
             System.out.println("3. View my membership expenses");
-            System.out.println("4. Back to main menu");
+            System.out.println("4. Logout");
             System.out.print("Enter your choice: ");
 
             try {
@@ -184,7 +184,7 @@ public class GymApp {
             System.out.println("3. Delete a Class");
             System.out.println("4. View Upcoming Workout Classes");
             System.out.println("5. Purchase a Membership");
-            System.out.println("6. Back to Main Menu");
+            System.out.println("6. Logout");
             System.out.print("Enter your choice: ");
 
             try {
@@ -257,7 +257,7 @@ public class GymApp {
                         scanner.nextLine();
                         Membership newMembership = new Membership(type, description, cost, user.getUserId());
                         if (membershipService.purchaseMembership(newMembership)) {
-                            System.out.println("Membership purchased successfully.");
+                            
                         } else {
                             System.out.println("Failed to purchase membership.");
                         }
@@ -286,7 +286,7 @@ public class GymApp {
             System.out.println("1. View all users");
             System.out.println("2. Delete a user");
             System.out.println("3. View memberships and annual revenue");
-            System.out.println("4. Back to main menu");
+            System.out.println("4. Logout");
             System.out.print("Enter your choice: ");
 
             try {
